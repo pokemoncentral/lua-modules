@@ -85,6 +85,8 @@ ability.mangiaerba = {erba = 0}
 ability['mare primordiale'] = ability.fuocardore
 ability['terra estrema'] = ability.acquascolo
 ability['flusso delta'] = {elettro = 0.5, ghiaccio = 0.5, roccia = 0.5}
+ability.bolladacqua = {fuoco = 0.5}
+ability.morbidone = {fuoco = 2}
 
 --[[
 
@@ -95,12 +97,12 @@ influenzati. Le abilità sono gli indici e i tipi
 influenzati gli elementi associati, es: all'indice
 pellearsa corrisponde una table contenente i tipi
 fuoco e acqua.
-Fanno eccezione Magidifesa, Filtro e Solidroccia,
+Fanno eccezione Magidifesa, Filtro, Scudoprisma e Solidroccia,
 che non hanno tipi associati fissi
 
 --]]
 
-et.modTypesAbil = {magidifesa = {}, filtro = {}, solidroccia = {}}
+et.modTypesAbil = {magidifesa = {}, filtro = {}, solidroccia = {}, scudoprisma = {}}
 for abil, types in pairs(ability) do
 	et.modTypesAbil[abil] = {}
 	for Type, eff in pairs(types) do
@@ -138,7 +140,7 @@ nomi dei tipi e dell'abilità, tutti in minuscolo
 --]]
 
 et.efficacia = function(atk, def1, def2, abil)
-	
+
 	-- Efficacia base con due tipi
 
 	local e = eff[atk][def1]
@@ -153,7 +155,7 @@ et.efficacia = function(atk, def1, def2, abil)
 
 	-- Filtro e solidroccia
 
-	elseif e >= 2 and (abil == 'filtro' or abil == 'solidroccia') then
+	elseif e >= 2 and (abil == 'filtro' or abil == 'solidroccia' or abil == 'scudoprisma') then
 		return e * 0.75
 
 	-- Magidifesa
